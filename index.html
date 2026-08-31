@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunnee Beachwear - Dashboard</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f4f8fb; padding: 20px; color: #333; }
+    h1 { color: #0284c7; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px; }
+    .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 5px solid #0284c7; }
+    .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+    .disponibile { background: #dcfce7; color: #15803d; }
+    .ordinato { background: #fee2e2; color: #b91c1c; }
+    button { background: #0284c7; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+    button:disabled { background: #cbd5e1; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+  <h1>☀️ Sunnee - Catalogo Sostenibile</h1>
+  <p>Prodotti realizzati in plastica riciclata dagli oceani.</p>
+
+  <div id="app" class="grid"></div>
+
+  <script type="module">
+    // Definizione al volo per il browser
+    class Prodotto {
+      constructor(id, tipo, taglia, colore, stato = 'disponibile') {
+        this.id = id; this.tipo = tipo; this.taglia = taglia; this.colore = colore; this.stato = stato;
+      }
+      assegnaCliente(cliente) {
+        this.clienteAssegnato = cliente;
+        this.stato = 'ordinato';
+      }
+    }
+
+    const prodotti = [
+      new Prodotto('PRD-101', 'Costume da bagno', 'L', 'Blu Oceano'),
+      new Prodotto('PRD-201', 'Pareo', 'Unica', 'Rosa Corallo'),
+      new Prodotto('PRD-301', 'Cappello', 'M', 'Naturale')
+    ];
+
+    function render() {
+      const app = document.getElementById('app');
+      app.innerHTML = prodotti.map(p => `
+        <div class="card">
+          <h3>${p.tipo}</h3>
+          <p><strong>ID:</strong> ${p.id} | <strong>Taglia:</strong> ${p.taglia} | <strong>Colore:</strong> ${p.colore}</p>
+          <span class="badge ${p.stato}">${p.stato.toUpperCase()}</span>
+          ${p.clienteAssegnato ? `<p><small>Acquistato da: ${p.clienteAssegnato.nome} ${p.clienteAssegnato.cognome}</small></p>` : ''}
+          <br>
+          <button ${p.stato === 'ordinato' ? 'disabled' : ''} onclick="acquista('${p.id}')">
+            ${p.stato === 'ordinato' ? 'Non disponibile' : 'Acquista come Giulia'}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    window.acquista = (id) => {
+      const p = prodotti.find(item => item.id === id);
+      if (p && p.stato === 'disponibile') {
+        p.assegnaCliente({ nome: 'Giulia', cognome: 'Verdi' });
+        render();
+      }
+    };
+
+    render();
+  </script>
+</body>
+</html>
