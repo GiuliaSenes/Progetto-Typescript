@@ -9,7 +9,7 @@ Il sistema gestisce l'intera filiera produttiva, la profilazione dei clienti, il
 ## 🔗 Link al Progetto
 
 * 🌐 **Demo Interattiva (CodePen):** [Guarda la Dashboard su CodePen](https://codepen.io/GiuliaSenes/pen/01a05718-c537-72ae-ba14-57d4f11f5578)
-* 💻 **Repository Codice (GitHub):**(https://github.com/GiuliaSenes/Progetto-Typescript)
+* 💻 **Repository Codice (GitHub):**https://github.com/GiuliaSenes/Progetto-Typescript
 
 ---
 
